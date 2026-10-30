@@ -22,7 +22,9 @@ plugins {
 }
 
 allprojects {
-    layout.buildDirectory.set(file("${System.getProperty('user.home')}/.cache/projects/vlc-android-build/${project.path.replace(':', '_')}"))
+    if (rootProject.projectDir.absolutePath.startsWith("/storage/emulated") || rootProject.projectDir.absolutePath.startsWith("/mnt/shared")) {
+        layout.buildDirectory.set(file("${System.getProperty('user.home')}/.cache/projects/vlc-android-build/${project.path.replace(':', '_')}"))
+    }
     repositories {
         google()
         mavenCentral()

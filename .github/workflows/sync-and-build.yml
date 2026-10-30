@@ -1,0 +1,139 @@
+name: Sync Upstream VLC & Build Material Media
+
+on:
+  schedule:
+    # Runs every Monday at 06:00 UTC to pull new upstream VLC commits and rebuild
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      sync_upstream:
+        description: 'Fetch and merge latest upstream VideoLAN vlc-android commits before building'
+        required: false
+        default: true
+        type: boolean
+      publish_release:
+        description: 'Publish a GitHub Release with the built APK (even if no new upstream commits)'
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-build:
+    name: Sync Upstream VLC, Test & Build APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Material Media Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch & Merge Upstream VideoLAN vlc-android
+        id: upstream_sync
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.sync_upstream == true)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git remote add upstream https://code.videolan.org/videolan/vlc-android.git || true
+          if ! git fetch upstream master --no-tags; then
+            echo "Primary VideoLAN GitLab unreachable, falling back to GitHub mirror..."
+            git remote set-url upstream https://github.com/videolan/vlc-android.git
+            git fetch upstream master --no-tags
+          fi
+
+          BEFORE_SHA=$(git rev-parse HEAD)
+          UPSTREAM_SHA=$(git rev-parse --short upstream/master)
+          echo "upstream_sha=${UPSTREAM_SHA}" >> "$GITHUB_OUTPUT"
+
+          if git merge-base --is-ancestor upstream/master HEAD; then
+            echo "Already up-to-date with upstream/master (${UPSTREAM_SHA})."
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Merging new upstream commits (${UPSTREAM_SHA}) with -X ours strategy..."
+            git merge -X ours upstream/master --no-edit -m "chore(sync): merge upstream vlc-android (${UPSTREAM_SHA})"
+            python3 .github/scripts/apply_material_media_branding.py
+            if ! git diff --quiet || ! git diff --cached --quiet; then
+              git add -A
+              git commit --amend --no-edit
+            fi
+            AFTER_SHA=$(git rev-parse HEAD)
+            if [ "$BEFORE_SHA" != "$AFTER_SHA" ]; then
+              echo "updated=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "updated=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Verify Material Media Branding & Configuration
+        run: python3 .github/scripts/apply_material_media_branding.py
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant Execute Permission for Gradlew
+        run: chmod +x gradlew
+
+      - name: Run Material 3 Expressive Unit Tests
+        run: ./gradlew :application:vlc-android:testDebugUnitTest --tests "org.videolan.vlc.gui.helpers.Material3ExpressiveThemeManagerTest" --stacktrace
+
+      - name: Upload Unit Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-reports
+          path: application/vlc-android/build/reports/tests/testDebugUnitTest/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Build Material Media Debug APK
+        run: ./gradlew :application:app:assembleDebug --stacktrace
+
+      - name: Upload Material Media APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Material-Media-debug-apk
+          path: application/app/build/outputs/apk/debug/Material-Media-*.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Push Synced Upstream Commits & Publish Release
+        if: >
+          (github.event_name == 'schedule' && steps.upstream_sync.outputs.updated == 'true') ||
+          (github.event_name == 'workflow_dispatch' && (steps.upstream_sync.outputs.updated == 'true' || inputs.publish_release == true))
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ steps.upstream_sync.outputs.updated }}" = "true" ]; then
+            git push origin HEAD:main
+            git push origin HEAD:master || true
+          fi
+
+          DATE_TAG="v3.7.2-sync.$(date -u +'%Y%m%d')"
+          UPSTREAM_SHA="${{ steps.upstream_sync.outputs.upstream_sha }}"
+          APK_FILE=$(ls application/app/build/outputs/apk/debug/Material-Media-*.apk | head -n 1)
+
+          gh release create "${DATE_TAG}" "${APK_FILE}" \
+            --title "Material Media ${DATE_TAG} (Upstream Sync ${UPSTREAM_SHA})" \
+            --notes "Automated Material 3 Expressive & Material You rebuild synced with upstream VideoLAN commit \`${UPSTREAM_SHA}\`." \
+            || gh release upload "${DATE_TAG}" "${APK_FILE}" --clobber
