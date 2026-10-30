@@ -112,7 +112,7 @@ android {
         assets.srcDirs = ['flavors/debug/assets']
     }
     sourceSets.test {
-        java.srcDirs = ['test', 'test-common']
+        java.srcDirs = ['test/org/videolan/vlc/gui']
         assets.srcDirs = ['flavors/debug/assets']
     }
     sourceSets.androidTest {
@@ -154,8 +154,8 @@ task generateSources(type: Jar) {
 }
 
 dependencies {
-    devApi project(':libvlcjni:libvlc')
-    devApi project(':medialibrary')
+    devApi "org.videolan.android:libvlc-all:$rootProject.ext.libvlcVersion"
+    devApi "org.videolan.android:medialibrary-all:$rootProject.ext.medialibraryVersion"
     debugApi "org.videolan.android:libvlc-all:$rootProject.ext.libvlcVersion"
     debugApi "org.videolan.android:medialibrary-all:$rootProject.ext.medialibraryVersion"
     releaseApi "org.videolan.android:libvlc-all:$rootProject.ext.libvlcVersion"

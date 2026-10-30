@@ -9,8 +9,14 @@
 
     <com.google.android.material.navigationrail.NavigationRailView
             android:id="@+id/navigation_rail"
+            style="@style/Widget.Material3Expressive.NavigationRailView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="?attr/bottom_navigation_background"
+            app:itemActiveIndicatorStyle="@style/Widget.Material3Expressive.NavigationRailView.ActiveIndicator"
+            app:itemIconTint="@color/bottom_navigation_selector"
+            app:itemRippleColor="?attr/bottom_navigation_focus"
+            app:itemTextColor="@color/bottom_navigation_selector"
             app:labelVisibilityMode="labeled"
             app:elevation="4dp"
             app:headerLayout="@layout/navigation_rail_fab"
@@ -47,28 +53,32 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            style="@style/Widget.Material3Expressive.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin"
             app:useCompatPadding="true"
             app:layout_dodgeInsetEdges="bottom"
             app:srcCompat="@drawable/ic_fab_add"
-            android:tint="@color/grey50"
+            app:backgroundTint="?attr/colorPrimaryContainer"
+            app:tint="?attr/colorOnPrimaryContainer"
             android:visibility="invisible"
             app:borderWidth="0dp"
             app:layout_anchor="@+id/navigation"
             app:layout_anchorGravity="top|end"
             android:layout_gravity="top|end"
             app:layout_behavior="org.videolan.vlc.gui.helpers.FloatingActionButtonBehavior"
-            app:rippleColor="@color/orange50" />
+            app:rippleColor="?attr/colorPrimary" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
+            style="@style/Widget.Material3Expressive.BottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="?attr/bottom_navigation_background"
-            app:elevation="16dp"
+            app:elevation="8dp"
+            app:itemActiveIndicatorStyle="@style/Widget.Material3Expressive.BottomNavigationView.ActiveIndicator"
             app:itemIconTint="@color/bottom_navigation_selector"
             app:itemRippleColor="?attr/bottom_navigation_focus"
             app:itemTextColor="@color/bottom_navigation_selector"

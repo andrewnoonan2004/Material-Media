@@ -15,6 +15,13 @@
 
     <CheckBoxPreference
             app:singleLineTitle="false"
+            android:defaultValue="true"
+            android:key="enable_dynamic_color"
+            android:title="@string/dynamic_color_title"
+            android:summary="@string/dynamic_color_summary"/>
+
+    <CheckBoxPreference
+            app:singleLineTitle="false"
             android:key="tv_ui"
             android:summary="@string/tv_ui_summary"
             android:title="@string/tv_ui_title"/>

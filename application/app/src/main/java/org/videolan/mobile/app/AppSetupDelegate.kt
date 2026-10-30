@@ -48,12 +48,14 @@ import org.videolan.resources.AppContextProvider
 import org.videolan.resources.VLCInstance
 import org.videolan.resources.util.startRemoteAccess
 import org.videolan.tools.AppScope
+import org.videolan.tools.KEY_DYNAMIC_COLOR
 import org.videolan.tools.KEY_ENABLE_REMOTE_ACCESS
 import org.videolan.tools.KEY_INCOGNITO
 import org.videolan.tools.KEY_PERSISTENT_INCOGNITO
 import org.videolan.tools.KEY_SET_LOCALE
 import org.videolan.tools.Settings
 import org.videolan.tools.putSingle
+import com.google.android.material.color.DynamicColors
 import org.videolan.vlc.BuildConfig
 import org.videolan.vlc.gui.helpers.NotificationHelper
 import org.videolan.vlc.util.DialogDelegate
@@ -89,6 +91,10 @@ class AppSetupDelegate : AppDelegate,
         System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
 
         val settings = Settings.getInstance(this)
+        Settings.dynamicColorEnabled = settings.getBoolean(KEY_DYNAMIC_COLOR, true)
+        if (Settings.dynamicColorEnabled && !Settings.showTvUi) {
+            DynamicColors.applyToActivitiesIfAvailable(this)
+        }
         if (BuildConfig.DEBUG) {
             if (Settings.showTvUi) {
                 // Register movipedia to resume tv shows/movies

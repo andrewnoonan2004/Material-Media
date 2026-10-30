@@ -40,6 +40,7 @@ import org.videolan.tools.KEY_APP_THEME
 import org.videolan.tools.KEY_ARTISTS_SHOW_ALL
 import org.videolan.tools.KEY_BLACK_THEME
 import org.videolan.tools.KEY_DAYNIGHT
+import org.videolan.tools.KEY_DYNAMIC_COLOR
 import org.videolan.tools.KEY_INCLUDE_MISSING
 import org.videolan.tools.KEY_MEDIA_SEEN
 import org.videolan.tools.KEY_SET_LOCALE
@@ -164,6 +165,11 @@ class PreferencesUi : BasePreferenceFragment(), SharedPreferences.OnSharedPrefer
                 UiTools.restartDialog(requireActivity())
             }
             KEY_APP_THEME -> {
+                UiTools.restartDialog(requireActivity())
+            }
+            KEY_DYNAMIC_COLOR -> {
+                Settings.dynamicColorEnabled = sharedPreferences.getBoolean(KEY_DYNAMIC_COLOR, true)
+                (activity as PreferencesActivity).setRestartApp()
                 UiTools.restartDialog(requireActivity())
             }
             LIST_TITLE_ELLIPSIZE -> {

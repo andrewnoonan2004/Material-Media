@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material You / Wallpaper Dynamic Accent Swatches (API 31+ Dark) -->
+    <color name="orange50">@android:color/system_accent1_50</color>
+    <color name="orange100">@android:color/system_accent1_100</color>
+    <color name="orange200">@android:color/system_accent1_200</color>
+    <color name="orange300">@android:color/system_accent1_300</color>
+    <color name="orange400">@android:color/system_accent1_300</color>
+    <color name="orange500">@android:color/system_accent1_300</color>
+    <color name="orange600">@android:color/system_accent1_400</color>
+    <color name="orange700">@android:color/system_accent1_500</color>
+    <color name="orange800">@android:color/system_accent1_300</color>
+    <color name="orange900">@android:color/system_accent1_700</color>
+
+    <color name="orange500transparent">@android:color/system_accent1_700</color>
+    <color name="orange500focus">@android:color/system_accent1_600</color>
+    <color name="orange200transparent">@android:color/system_accent1_800</color>
+    <color name="orange_800_transparent_10">@android:color/system_accent2_800</color>
+    <color name="orange_800_transparent_20">@android:color/system_accent2_700</color>
+    <color name="orange_500_transparent_20">@android:color/system_accent2_700</color>
+
+    <color name="action_mode_light">@android:color/system_accent2_100</color>
+    <color name="action_mode_dark">@android:color/system_neutral1_800</color>
+    <color name="dark_background">@android:color/system_neutral1_900</color>
+    <color name="mini_player_dark">@android:color/system_neutral1_800</color>
+</resources>

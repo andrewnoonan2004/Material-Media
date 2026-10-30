@@ -34,6 +34,7 @@ object Settings : SingletonHolder<SharedPreferences, Context>({ init(it.applicat
     var tvFoldersFirst = true
     var incognitoMode = false
     var safeMode = false
+    var dynamicColorEnabled = true
     var remoteAccessEnabled = MutableLiveData(false)
     var fastplaySpeed = 2f
     private var audioControlsChangeListener: (() -> Unit)? = null
@@ -60,6 +61,7 @@ object Settings : SingletonHolder<SharedPreferences, Context>({ init(it.applicat
         showTrackNumber = prefs.getBoolean(ALBUMS_SHOW_TRACK_NUMBER, true)
         tvFoldersFirst = prefs.getBoolean(TV_FOLDERS_FIRST, true)
         incognitoMode = prefs.getBoolean(KEY_INCOGNITO, false)
+        dynamicColorEnabled = prefs.getBoolean(KEY_DYNAMIC_COLOR, true)
         safeMode = prefs.getBoolean(KEY_SAFE_MODE, false) && prefs.getString(KEY_SAFE_MODE_PIN, "")?.isNotBlank() == true
         remoteAccessEnabled.postValue(prefs.getBoolean(KEY_ENABLE_REMOTE_ACCESS, false))
         return prefs
@@ -124,6 +126,7 @@ const val KEY_CURRENT_MAJOR_VERSION = "key_current_major_version"
 const val KEY_ARTISTS_SHOW_ALL = "artists_show_all"
 const val KEY_SHOW_HEADERS = "show_headers"
 const val KEY_APP_THEME = "app_theme"
+const val KEY_DYNAMIC_COLOR = "enable_dynamic_color"
 const val KEY_BLACK_THEME = "enable_black_theme"
 const val KEY_DAYNIGHT = "daynight"
 const val SHOW_VIDEO_THUMBNAILS = "show_video_thumbnails"

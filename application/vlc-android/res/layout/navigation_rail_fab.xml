@@ -23,18 +23,20 @@
   -->
 
 <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/fab_large"
+        style="@style/Widget.Material3Expressive.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_margin"
         app:useCompatPadding="true"
         app:layout_dodgeInsetEdges="bottom"
         app:srcCompat="@drawable/ic_fab_add"
-        android:tint="@color/grey50"
+        app:backgroundTint="?attr/colorPrimaryContainer"
+        app:tint="?attr/colorOnPrimaryContainer"
         app:borderWidth="0dp"
         app:layout_anchor="@+id/navigation"
         app:layout_anchorGravity="top|end"
         android:layout_gravity="top|end"
         app:layout_behavior="org.videolan.vlc.gui.helpers.FloatingActionButtonBehavior"
-        app:rippleColor="@color/orange50"
+        app:rippleColor="?attr/colorPrimary"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" />

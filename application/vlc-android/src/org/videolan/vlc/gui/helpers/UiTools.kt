@@ -1086,39 +1086,7 @@ fun trackNumber(v: View, media: MediaWrapper) {
 }
 
 fun BaseActivity.applyTheme() {
-    forcedTheme()?.let {
-        setTheme(it)
-        if (it == R.style.Theme_VLC_Onboarding) {
-            window.setBackgroundDrawable(ContextCompat.getColor(this, R.color.onboarding_grey).toDrawable())
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightNavigationBars = false
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.navigationBarColor = ContextCompat.getColor(this, R.color.onboarding_grey)
-            }
-            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-        }
-        return
-    }
-    if (Settings.showTvUi) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        setTheme(R.style.Theme_VLC_Black)
-        return
-    }
-
-    val string = settings.getString(KEY_APP_THEME, "-1")
-    when (string) {
-        "1" -> {
-            window.setBackgroundDrawable(ContextCompat.getColor(this, R.color.white).toDrawable())
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightNavigationBars = true
-        }
-        "2" -> {
-            window.setBackgroundDrawable(ContextCompat.getColor(this, R.color.mini_player_dark).toDrawable())
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
-            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightNavigationBars = false
-        }
-    }
-    AppCompatDelegate.setDefaultNightMode(Integer.valueOf(string!!))
+    Material3ExpressiveThemeManager.applyToActivity(this)
 }
 
 fun getTvIconRes(mediaLibraryItem: MediaLibraryItem) = when (mediaLibraryItem.itemType) {

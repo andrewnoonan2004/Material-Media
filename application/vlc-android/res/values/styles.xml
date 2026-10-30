@@ -12,16 +12,19 @@
 
     </style>
 
-    <style name="Theme.VLC.Apearance" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="toolbar_popup_style">@style/ThemeOverlay.MaterialComponents</item>
+    <style name="Theme.VLC.Apearance" parent="Theme.Material3Expressive.DynamicColors.Light.NoActionBar">
+        <item name="toolbar_popup_style">@style/ThemeOverlay.Material3Expressive.Light</item>
         <item name="actionMenuTextColor">@color/white</item>
 
         <item name="android:gridViewStyle">@style/Theme.VLC.List</item>
         <item name="android:expandableListViewStyle">@style/Theme.VLC.List</item>
         <item name="android:dropDownListViewStyle">@style/Theme.VLC.List</item>
         <item name="preferenceTheme">@style/VLCPreferenceTheme.Light</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
-        </item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+        <item name="bottomNavigationStyle">@style/Widget.Material3Expressive.BottomNavigationView</item>
+        <item name="navigationRailStyle">@style/Widget.Material3Expressive.NavigationRailView</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Material3Expressive.FloatingActionButton</item>
+        <item name="materialCardViewStyle">@style/VLCCardView</item>
 
         <item name="colorPrimary">@color/orange800</item>
         <item name="colorPrimaryDark">@color/orange700</item>
@@ -51,7 +54,7 @@
         <item name="round_background">@drawable/round_background</item>
         <item name="bottom_sheet_background">@color/white</item>
         <item name="bookmark_background">@color/white_transparent_90</item>
-        <item name="bottom_sheet_radius">16dp</item>
+        <item name="bottom_sheet_radius">28dp</item>
         <item name="bottom_navigation_color">@color/grey700</item>
         <item name="header_background">@color/whitetransparent_ea</item>
         <item name="background_default_darker">@color/grey200</item>
@@ -78,7 +81,7 @@
         <item name="fast_scroller_handle">@drawable/fastscroller_handle</item>
         <item name="primary_focus">@color/orange_800_transparent_20</item>
         <item name="swipe_refresh_background">?attr/background_default</item>
-        <item name="dialogButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="dialogButtonStyle">@style/Widget.Material3Expressive.Button.TextButton.Dialog</item>
         <item name="permission_explanation_background">@color/grey200</item>
 
         <item name="gridview_progressbar">@drawable/gridview_progressbar</item>
@@ -92,7 +95,7 @@
         <item name="player_icon_color">@color/black</item>
         <item name="card_background">@color/white</item>
         <item name="default_separator">@color/grey300</item>
-        <item name="empty_button">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+        <item name="empty_button">@style/Widget.Material3Expressive.Button.TonalButton</item>
         <item name="card_border">@color/grey300</item>
         <item name="empty_foreground">@color/grey300</item>
         <item name="empty_background">@color/grey50</item>
@@ -110,36 +113,32 @@
         <item name="sliderStyle">@style/VLC.Slider</item>
     </style>
 
-    <style name="VLC.Slider" parent="Widget.MaterialComponents.Slider">
+    <style name="VLC.Slider" parent="Widget.Material3Expressive.Slider.Xsmall">
         <item name="labelStyle">@style/VLC.Tooltip</item>
-         <item name="thumbRadius">6dp</item>
-         <item name="haloRadius">12dp</item>
-   </style>
-
-    <style name="VLC.Slider.Dark" parent="VLC.Slider">
-        <item name="labelStyle">@style/VLC.Tooltip.Dark</item>
-         <item name="thumbRadius">6dp</item>
-         <item name="haloRadius">12dp</item>
-   </style>
-
-    <style name="VLC.Tooltip" parent="Widget.MaterialComponents.Tooltip">
-        <item name="android:textAppearance">@style/TextAppearance.VLC.Tooltip</item>
-        <item name="backgroundTint">@color/orange800</item>
     </style>
-    <style name="VLC.Tooltip.Dark" parent="Widget.MaterialComponents.Tooltip">
+
+    <style name="VLC.Slider.Dark" parent="Widget.Material3Expressive.Slider.Xsmall">
+        <item name="labelStyle">@style/VLC.Tooltip.Dark</item>
+    </style>
+
+    <style name="VLC.Tooltip" parent="Widget.Material3.Tooltip">
         <item name="android:textAppearance">@style/TextAppearance.VLC.Tooltip</item>
-        <item name="backgroundTint">@color/orange500</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+    <style name="VLC.Tooltip.Dark" parent="Widget.Material3.Tooltip">
+        <item name="android:textAppearance">@style/TextAppearance.VLC.Tooltip</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
     </style>
 
     <style name="TextAppearance.VLC.Tooltip" parent="TextAppearance.Material3.BodySmall">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="fontFamily">sans-serif-black</item>
     </style>
 
     <style name="Theme.VLC.PickerDialog" parent="Theme.VLC.PickerDialog.Light"/>
     <style name="Theme.VLC.PickerDialog.Dark" parent="Theme.VLC.PickerDialog.Dark.7"/>
     <style name="Theme.VLC.PickerDialog.Light" parent="Theme.VLC.PickerDialog.Light.7"/>
-    <style name="Theme.VLC.PickerDialog.Dark.7" parent="Theme.MaterialComponents.Dialog">
+    <style name="Theme.VLC.PickerDialog.Dark.7" parent="Theme.Material3Expressive.Dark.Dialog">
         <item name="colorPrimary">@color/orange500</item>
         <item name="colorPrimaryDark">@color/orange700</item>
         <item name="colorSecondary">@color/orange500</item>
@@ -162,7 +161,7 @@
         <item name="gridview_progressbar">@drawable/gridview_progressbar_w</item>
     </style>
 
-    <style name="Theme.VLC.PickerDialog.Light.7" parent="Theme.MaterialComponents.Dialog">
+    <style name="Theme.VLC.PickerDialog.Light.7" parent="Theme.Material3Expressive.Light.Dialog">
         <item name="colorPrimary">@color/orange500</item>
         <item name="colorPrimaryDark">@color/orange700</item>
         <item name="colorSecondary">@color/orange500</item>
@@ -186,7 +185,7 @@
         <item name="gridview_progressbar">@drawable/gridview_progressbar</item>
     </style>
 
-    <style name="Theme.VLC.SendCrashDialog" parent="Theme.MaterialComponents.Dialog">
+    <style name="Theme.VLC.SendCrashDialog" parent="Theme.Material3Expressive.Dark.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/orange800</item>
         <item name="colorPrimaryDark">@color/orange700</item>
@@ -209,15 +208,18 @@
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
-    <style name="Theme.VLC.Apearance.Black" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="toolbar_popup_style">@style/ThemeOverlay.MaterialComponents.Dark</item>
+    <style name="Theme.VLC.Apearance.Black" parent="Theme.Material3Expressive.DynamicColors.Dark.NoActionBar">
+        <item name="toolbar_popup_style">@style/ThemeOverlay.Material3Expressive.Dark</item>
 
         <item name="android:gridViewStyle">@style/Theme.VLC.List</item>
         <item name="android:expandableListViewStyle">@style/Theme.VLC.List</item>
         <item name="android:dropDownListViewStyle">@style/Theme.VLC.List</item>
         <item name="preferenceTheme">@style/VLCPreferenceTheme.Dark</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
-        </item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+        <item name="bottomNavigationStyle">@style/Widget.Material3Expressive.BottomNavigationView</item>
+        <item name="navigationRailStyle">@style/Widget.Material3Expressive.NavigationRailView</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Material3Expressive.FloatingActionButton</item>
+        <item name="materialCardViewStyle">@style/VLCCardView</item>
 
         <item name="colorPrimary">@color/orange500</item>
         <item name="colorPrimaryDark">@color/transparent</item>
@@ -245,7 +247,7 @@
         <item name="round_background">@drawable/round_background_dark</item>
         <item name="bottom_sheet_background">@color/grey875</item>
         <item name="bookmark_background">@color/black_transparent_80</item>
-        <item name="bottom_sheet_radius">16dp</item>
+        <item name="bottom_sheet_radius">28dp</item>
         <item name="bottom_navigation_color">@color/grey500</item>
         <item name="header_background">@color/dark_background</item>
         <item name="background_default_darker">@color/grey875</item>
@@ -272,7 +274,7 @@
         <item name="fast_scroller_handle">@drawable/fastscroller_handle_black</item>
         <item name="primary_focus">@color/orange_500_transparent_20</item>
         <item name="swipe_refresh_background">?attr/background_default_darker</item>
-        <item name="dialogButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="dialogButtonStyle">@style/Widget.Material3Expressive.Button.TextButton.Dialog</item>
         <item name="permission_explanation_background">@color/grey800</item>
 
         <item name="gridview_progressbar">@drawable/gridview_progressbar_w</item>
@@ -286,7 +288,7 @@
         <item name="player_icon_color">@color/white</item>
         <item name="card_background">@color/black</item>
         <item name="default_separator">@color/grey700</item>
-        <item name="empty_button">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+        <item name="empty_button">@style/Widget.Material3Expressive.Button.TonalButton</item>
 
         <item name="card_border">@color/grey800</item>
         <item name="empty_foreground">@color/grey800</item>
@@ -303,6 +305,72 @@
         <item name="about_text_primary">@color/orange500</item>
         <item name="widget_preview_rounded_bg">@drawable/rounded_top_corners_left_background_dark</item>
         <item name="sliderStyle">@style/VLC.Slider.Dark</item>
+    </style>
+
+    <!-- Material 3 Expressive Dynamic Color & Static Orange Theme Overlays -->
+    <style name="ThemeOverlay.VLC.DynamicColors.Light" parent="">
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="colorControlHighlight">?attr/colorPrimary</item>
+        <item name="background_default">?attr/colorSurface</item>
+        <item name="background_default_darker">?attr/colorSurfaceContainerLow</item>
+        <item name="background_actionbar">?attr/colorSurface</item>
+        <item name="header_background">?attr/colorSurfaceContainer</item>
+        <item name="bottom_sheet_background">?attr/colorSurfaceContainerLow</item>
+        <item name="card_background">?attr/colorSurfaceContainerLow</item>
+        <item name="card_border">?attr/colorOutlineVariant</item>
+        <item name="audio_header_background">?attr/colorSurfaceContainer</item>
+        <item name="audio_browser_separator">?attr/colorPrimary</item>
+        <item name="primary_focus">?attr/colorSecondaryContainer</item>
+        <item name="bottom_navigation_focus">?attr/colorSecondaryContainer</item>
+        <item name="bottom_navigation_color">?attr/colorOnSurfaceVariant</item>
+        <item name="about_text_primary">?attr/colorPrimary</item>
+        <item name="donate_card">?attr/colorPrimaryContainer</item>
+        <item name="permission_explanation_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="tips_item_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="empty_background">?attr/colorSurfaceContainerLowest</item>
+        <item name="empty_foreground">?attr/colorSurfaceContainerHigh</item>
+    </style>
+
+    <style name="ThemeOverlay.VLC.DynamicColors.Dark" parent="">
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="colorControlHighlight">?attr/colorPrimary</item>
+        <item name="background_default">?attr/colorSurface</item>
+        <item name="background_default_darker">?attr/colorSurfaceContainerLow</item>
+        <item name="background_actionbar">?attr/colorSurface</item>
+        <item name="header_background">?attr/colorSurfaceContainer</item>
+        <item name="bottom_sheet_background">?attr/colorSurfaceContainerLow</item>
+        <item name="card_background">?attr/colorSurfaceContainerLow</item>
+        <item name="card_border">?attr/colorOutlineVariant</item>
+        <item name="audio_header_background">?attr/colorSurfaceContainer</item>
+        <item name="audio_browser_separator">?attr/colorPrimary</item>
+        <item name="primary_focus">?attr/colorSecondaryContainer</item>
+        <item name="bottom_navigation_focus">?attr/colorSecondaryContainer</item>
+        <item name="bottom_navigation_color">?attr/colorOnSurfaceVariant</item>
+        <item name="about_text_primary">?attr/colorPrimary</item>
+        <item name="donate_card">?attr/colorPrimaryContainer</item>
+        <item name="permission_explanation_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="tips_item_background">?attr/colorSurfaceContainerHigh</item>
+        <item name="empty_background">?attr/colorSurfaceContainerLowest</item>
+        <item name="empty_foreground">?attr/colorSurfaceContainerHigh</item>
+    </style>
+
+    <style name="ThemeOverlay.VLC.StaticOrange.Light" parent="">
+        <item name="colorPrimary">@color/static_orange800</item>
+        <item name="colorPrimaryDark">@color/static_orange700</item>
+        <item name="colorSecondary">@color/static_orange800</item>
+        <item name="colorAccent">@color/static_orange800</item>
+        <item name="colorControlHighlight">@color/static_orange800</item>
+        <item name="audio_browser_separator">@color/static_orange800</item>
+        <item name="donate_card">@color/static_orange500</item>
+    </style>
+
+    <style name="ThemeOverlay.VLC.StaticOrange.Dark" parent="">
+        <item name="colorPrimary">@color/static_orange500</item>
+        <item name="colorSecondary">@color/static_orange600</item>
+        <item name="colorAccent">@color/static_orange600</item>
+        <item name="colorControlHighlight">@color/static_orange500</item>
+        <item name="audio_browser_separator">@color/static_orange500</item>
+        <item name="about_text_primary">@color/static_orange500</item>
     </style>
 
 
@@ -466,14 +534,14 @@
         <item name="android:dividerHeight">0dp</item>
     </style>
 
-    <style name="Theme.VLC.NoTitleBar" parent="Theme.MaterialComponents.Light">
+    <style name="Theme.VLC.NoTitleBar" parent="Theme.Material3Expressive.DynamicColors.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="font_default">@color/grey900</item>
         <item name="font_light">@color/grey700</item>
         <item name="android:windowBackground">@color/grey200</item>
     </style>
 
-    <style name="Theme.VLC.Transparent" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.VLC.Transparent" parent="Theme.Material3Expressive.DynamicColors.Dark.NoActionBar">
         <item name="colorPrimary">@color/orange800</item>
         <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/orange500</item>
@@ -493,18 +561,17 @@
 
     <style name="Theme.VLC.Player" parent="Theme.VLC.Player.7" />
 
-    <style name="Theme.VLC.Player.7" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Theme.VLC.Player.7" parent="Theme.Material3Expressive.DynamicColors.Dark.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/transparent</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
-        </item>
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme.Player</item>
         <item name="bottom_sheet_background">@color/black_transparent_80</item>
-        <item name="bottom_sheet_radius">4dp</item>
+        <item name="bottom_sheet_radius">28dp</item>
 
 
         <item name="colorPrimary">@color/orange800</item>
@@ -540,7 +607,7 @@
 
     <style name="VLCTransparentTheme" parent="VLCTransparentThemeLight" />
 
-    <style name="VLCTransparentThemeLight" parent="Theme.MaterialComponents.Light.Dialog.MinWidth">
+    <style name="VLCTransparentThemeLight" parent="Theme.Material3Expressive.Light.Dialog.MinWidth">
 
         <item name="android:background">@android:color/transparent</item>
         <item name="background">@android:color/transparent</item>
@@ -558,7 +625,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="VLCTransparentThemeDark" parent="Theme.MaterialComponents.Dialog.MinWidth">
+    <style name="VLCTransparentThemeDark" parent="Theme.Material3Expressive.Dark.Dialog.MinWidth">
 
         <item name="android:background">@android:color/transparent</item>
         <item name="background">@android:color/transparent</item>
@@ -643,11 +710,11 @@
     </style>
 
 
-    <style name="VLC.Onboarding.Button.Next" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="VLC.Onboarding.Button.Next" parent="Widget.Material3Expressive.Button.OutlinedButton">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="VLC.Tips.Button.Next" parent="Widget.MaterialComponents.Button">
+    <style name="VLC.Tips.Button.Next" parent="Widget.Material3Expressive.Button">
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -664,16 +731,16 @@
         <item name="color">@color/black</item>
     </style>
 
-    <style name="Toolbar.VLC" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
+    <style name="Toolbar.VLC" parent="ThemeOverlay.Material3Expressive.Toolbar.Surface">
         <item name="android:textCursorDrawable">@drawable/cursor_w</item>
         <item name="colorControlNormal">@color/grey700</item>
     </style>
 
     <style name="ExpandableToolbar.VLC" parent="Toolbar.VLC">
-        <item name="background">@color/white</item>
+        <item name="background">?attr/background_actionbar</item>
     </style>
 
-    <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="android:shadowDy">0</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowRadius">4</item>
@@ -681,7 +748,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TabLayout.VLC" parent="Widget.MaterialComponents.TabLayout">
+    <style name="TabLayout.VLC" parent="Widget.Material3.TabLayout">
         <item name="android:background">?attr/background_default</item>
         <item name="tabRippleColor">?attr/colorPrimary</item>
         <item name="tabMode">scrollable</item>
@@ -758,7 +825,7 @@
     <!-- Tips Apearance-->
 
     <style name="TipsFontStyle">
-        <item name="android:textColor">@color/orange700</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -767,7 +834,7 @@
     </style>
 
     <!--BottomSheet-->
-    <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+    <style name="AppBottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
         <item name="android:windowIsFloating">false</item>
@@ -780,7 +847,7 @@
 
     </style>
 
-    <style name="AppModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="AppModalStyle" parent="Widget.Material3.BottomSheet.Modal">
     </style>
 
     <style name="Theme.VLC.BottomSheetTitle">
@@ -797,12 +864,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="ToolbarTitleText" parent="@style/TextAppearance.MaterialComponents.Headline6">
+    <style name="ToolbarTitleText" parent="@style/TextAppearance.Material3.TitleLarge">
         <item name="android:textColor">?attr/colorControlNormal</item>
     </style>
 
-    <style name="VLCCardView" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">4dp</item>
+    <style name="VLCCardView" parent="@style/Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
         <item name="background">?attr/card_background</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
@@ -838,7 +905,7 @@
 
     </style>
 
-    <style name="VLCDialogButton" parent="TextAppearance.MaterialComponents.Button">
+    <style name="VLCDialogButton" parent="TextAppearance.Material3.LabelLarge">
         <item name="android:background">@drawable/button_background</item>
     </style>
 
@@ -849,10 +916,10 @@
         <item name="android:windowBackground">@color/transparent</item>
     </style>
 
-    <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">
+    <style name="Widget.App.CardView" parent="Widget.Material3.CardView.Outlined">
         <item name="strokeColor">?attr/font_light</item>
         <item name="strokeWidth">1dp</item>
-        <item name="cardCornerRadius">4dp</item>
+        <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">0dp</item>
     </style>
 
