@@ -91,6 +91,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
 
+      - name: Create local.properties for CI
+        run: echo "sdk.dir=${ANDROID_SDK_ROOT}" > local.properties
+
       - name: Generate Gradle Wrapper
         run: gradle wrapper --gradle-version 9.6.0
 
