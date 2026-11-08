@@ -24,6 +24,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -75,6 +76,10 @@ class CoverMediaSwitcher(context: Context, attrs: AttributeSet) : AudioMediaSwit
         }
 
         trackInfoView?.visibility = if (Settings.showAudioTrackInfo) VISIBLE else GONE
+
+        val coverCard = v.findViewById<View>(R.id.cover_card)
+        coverView.setOnClickListener { onTouchClick() }
+        coverCard?.setOnClickListener { onTouchClick() }
 
         titleView.setOnClickListener { onTextClicked() }
         artistView.setOnClickListener { onTextClicked() }

@@ -1067,6 +1067,10 @@ class AudioPlayer : Fragment(), PlaylistAdapter.IPlayer, TextWatcher, IAudioPlay
             (activity as? AudioPlayerContainerActivity)?.playerBehavior?.lock(false)
         }
 
+        override fun onTouchClick() {
+            onPlaylistSwitchClick(binding.playlistSwitch)
+        }
+
         override fun onTextClicked() {
             Settings.getInstance(requireActivity()).putSingle(KEY_SHOW_TRACK_INFO, !Settings.showAudioTrackInfo)
             Settings.showAudioTrackInfo = !Settings.showAudioTrackInfo

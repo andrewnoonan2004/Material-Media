@@ -79,6 +79,10 @@ abstract class AudioMediaSwitcher(context: Context, attrs: AttributeSet) : Fling
         audioMediaSwitcherListener.onTextClicked()
     }
 
+    fun onTouchClick() {
+        audioMediaSwitcherListener.onTouchClick()
+    }
+
     fun onChapterSwitching(next: Boolean) {
         audioMediaSwitcherListener.onChapterSwitching(next)
     }

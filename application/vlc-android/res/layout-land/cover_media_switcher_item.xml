@@ -36,6 +36,7 @@
                 android:id="@+id/cover_card"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="0dp"
                 app:cardElevation="16dp"
