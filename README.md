@@ -11,6 +11,26 @@
 
 ---
 
+## 📱 Screenshots & UI Preview
+
+<p align="center">
+  <img src="docs/screenshots/01_video_library.png" width="19%" alt="Video Library (Material 3 Expressive)" />
+  <img src="docs/screenshots/02_audio_library_miniplayer.png" width="19%" alt="Audio Library & Persistent Mini-Player" />
+  <img src="docs/screenshots/03_player_equalizer.png" width="19%" alt="Full Player & 10-Band Expressive Equalizer" />
+  <img src="docs/screenshots/04_browse_streams.png" width="19%" alt="Storage Browser & Network Streams" />
+  <img src="docs/screenshots/05_settings_dynamic_color.png" width="19%" alt="Interface Settings & Wallpaper Dynamic Color" />
+</p>
+
+| Page | Material 3 Expressive & Material You Highlights |
+| :--- | :--- |
+| **[1. Video Library](docs/screenshots/01_video_library.png)** | `16dp` rounded `VLCCardView` video cards, codec/resolution chips, dynamic progress bars, `Widget.Material3Expressive.FloatingActionButton`, and pill-shaped active indicator on the bottom navigation bar. |
+| **[2. Audio Library & Mini-Player](docs/screenshots/02_audio_library_miniplayer.png)** | Segmented category tabs (`Artists`, `Albums`, `Tracks`, `Genres`, `Playlists`), `16dp` expressive album art grid cards, and the persistent tonal `colorSurfaceContainerHigh` mini-player bar. |
+| **[3. Full Player & 10-Band Equalizer](docs/screenshots/03_player_equalizer.png)** | Full-screen playback controls with `Widget.Material3Expressive.Slider.Xsmall` seekbar and a `28dp` modal bottom sheet (`AppBottomSheetDialogTheme`) housing the 10-band graphic equalizer + preamp fader. |
+| **[4. Browse & Network Streams](docs/screenshots/04_browse_streams.png)** | Unified local storage cards, SMBv3 / DLNA / SFTP local network discovery, and direct RTSP / HLS / DASH stream playback with dynamic tonal iconography. |
+| **[5. Settings & Dynamic Color](docs/screenshots/05_settings_dynamic_color.png)** | **Settings → Interface** featuring DayNight theme controls and the **Material You wallpaper colors** (`enable_dynamic_color`) toggle that extracts `system_accent1_*` & `system_neutral1_*` palettes on Android 12+. |
+
+---
+
 ## 🌟 Highlights & Features
 
 ### 1. 🎨 Material 3 Expressive Design System
