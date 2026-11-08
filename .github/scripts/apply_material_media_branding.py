@@ -52,8 +52,30 @@ def patch_app_build_gradle():
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
     content = content.replace('def outputName = "VLC-Android-"', 'def outputName = "Material-Media-"')
+    content = content.replace('//            universalApk !isReleaseBuild', '            universalApk true')
+    if "signingConfig = project.hasProperty('keyStoreFile')" not in content:
+        content = content.replace(
+            "        release {\n            minifyEnabled false",
+            "        release {\n            signingConfig = project.hasProperty('keyStoreFile') ? signingConfigs.release : signingConfigs.debug\n            minifyEnabled false",
+        )
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
+
+
+def patch_manifests():
+    for path in [
+        "application/app/flavors/release/AndroidManifest.xml",
+        "application/vlc-android/AndroidManifest.xml",
+    ]:
+        if os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read()
+            content = content.replace(
+                "org.videolan.vlc.permission.",
+                "${applicationId}.permission.",
+            )
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(content)
 
 
 def patch_strings_xml():
@@ -112,6 +134,7 @@ if __name__ == "__main__":
     patch_root_build_gradle()
     patch_settings_gradle()
     patch_app_build_gradle()
+    patch_manifests()
     patch_strings_xml()
     remove_legacy_cone_pngs()
     print("Material Media branding and Material 3 Expressive configuration verified.")

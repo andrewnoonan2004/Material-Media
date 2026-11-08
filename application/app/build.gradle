@@ -71,6 +71,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig = project.hasProperty('keyStoreFile') ? signingConfigs.release : signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             kotlin {
@@ -130,7 +131,7 @@ android {
             enable = isReleaseBuild
             reset()
             include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
-//            universalApk !isReleaseBuild
+            universalApk true
         }
     }
 

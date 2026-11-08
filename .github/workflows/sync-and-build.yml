@@ -12,7 +12,7 @@ on:
         default: true
         type: boolean
       publish_release:
-        description: 'Publish a GitHub Release with the built APK (even if no new upstream commits)'
+        description: 'Publish a GitHub Release with the built APKs (even if no new upstream commits)'
         required: false
         default: false
         type: boolean
@@ -30,7 +30,7 @@ permissions:
 
 jobs:
   sync-and-build:
-    name: Sync Upstream VLC, Test & Build APK
+    name: Sync Upstream VLC, Test & Build Release + Debug APKs
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -97,6 +97,32 @@ jobs:
       - name: Generate Gradle Wrapper
         run: gradle wrapper --gradle-version 9.6.0
 
+      - name: Prepare Release Keystore for Non-Debug APK Signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+        run: |
+          mkdir -p "$HOME/.android"
+          if [ -n "$KEYSTORE_BASE64" ] && [ -n "$KEY_ALIAS" ] && [ -n "$KEYSTORE_PASSWORD" ]; then
+            echo "Using repository secret release keystore..."
+            echo "$KEYSTORE_BASE64" | base64 -d > "$HOME/.android/release.keystore"
+            echo "RELEASE_KEYSTORE=$HOME/.android/release.keystore" >> "$GITHUB_ENV"
+            echo "RELEASE_ALIAS=$KEY_ALIAS" >> "$GITHUB_ENV"
+            echo "RELEASE_PASS=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+          else
+            echo "Generating self-signed release keystore for installable non-debug APK..."
+            keytool -genkeypair -v \
+              -keystore "$HOME/.android/release.keystore" \
+              -alias materialmedia \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass materialmedia -keypass materialmedia \
+              -dname "CN=Material Media, OU=Android, O=MaterialMedia, L=Unknown, ST=Unknown, C=US"
+            echo "RELEASE_KEYSTORE=$HOME/.android/release.keystore" >> "$GITHUB_ENV"
+            echo "RELEASE_ALIAS=materialmedia" >> "$GITHUB_ENV"
+            echo "RELEASE_PASS=materialmedia" >> "$GITHUB_ENV"
+          fi
+
       - name: Run Material 3 Expressive Unit Tests
         run: ./gradlew :application:vlc-android:testDebugUnitTest --tests "org.videolan.vlc.gui.helpers.Material3ExpressiveThemeManagerTest" --stacktrace
 
@@ -109,10 +135,28 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: Build Material Media Non-Debug (Release) APKs
+        env:
+          PASSWORD_KEYSTORE: ${{ env.RELEASE_PASS }}
+        run: |
+          ./gradlew :application:app:assembleRelease \
+            -PkeyStoreFile="${{ env.RELEASE_KEYSTORE }}" \
+            -Pstorealias="${{ env.RELEASE_ALIAS }}" \
+            -Pstorepwd="${{ env.RELEASE_PASS }}" \
+            --stacktrace
+
+      - name: Upload Material Media Release APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Material-Media-release-apks
+          path: application/app/build/outputs/apk/release/Material-Media-*.apk
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Build Material Media Debug APK
         run: ./gradlew :application:app:assembleDebug --stacktrace
 
-      - name: Upload Material Media APK Artifact
+      - name: Upload Material Media Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Material-Media-debug-apk
@@ -134,9 +178,16 @@ jobs:
 
           DATE_TAG="v3.7.2-sync.$(date -u +'%Y%m%d')"
           UPSTREAM_SHA="${{ steps.upstream_sync.outputs.upstream_sha }}"
-          APK_FILE=$(ls application/app/build/outputs/apk/debug/Material-Media-*.apk | head -n 1)
+          if [ -z "$UPSTREAM_SHA" ]; then
+            UPSTREAM_SHA=$(git rev-parse --short HEAD)
+          fi
 
-          gh release create "${DATE_TAG}" "${APK_FILE}" \
-            --title "Material Media ${DATE_TAG} (Upstream Sync ${UPSTREAM_SHA})" \
-            --notes "Automated Material 3 Expressive & Material You rebuild synced with upstream VideoLAN commit \`${UPSTREAM_SHA}\`." \
-            || gh release upload "${DATE_TAG}" "${APK_FILE}" --clobber
+          gh release create "${DATE_TAG}" \
+            application/app/build/outputs/apk/release/Material-Media-*.apk \
+            application/app/build/outputs/apk/debug/Material-Media-*.apk \
+            --title "Material Media ${DATE_TAG} (Release & Debug APKs)" \
+            --notes "Automated Material 3 Expressive & Material You build (Release \`app.material.media\` + Debug \`app.material.media.debug\`) synced with commit \`${UPSTREAM_SHA}\`." \
+            || gh release upload "${DATE_TAG}" \
+               application/app/build/outputs/apk/release/Material-Media-*.apk \
+               application/app/build/outputs/apk/debug/Material-Media-*.apk \
+               --clobber
